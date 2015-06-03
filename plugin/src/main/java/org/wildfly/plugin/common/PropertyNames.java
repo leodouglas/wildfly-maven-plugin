@@ -84,5 +84,7 @@ public interface PropertyNames {
     String PROPERTIES_FILE = "wildfly.propertiesFile";
 
     String SERVER_ARGS = "wildfly.serverArgs";
+    
+    String NOT_DEPLOY = "wildfly.notDeploy";
 
 }
