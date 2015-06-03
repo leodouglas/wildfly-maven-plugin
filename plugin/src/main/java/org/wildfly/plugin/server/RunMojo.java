@@ -163,6 +163,12 @@ public class RunMojo extends DeployMojo {
      */
     @Parameter(alias = "server-args", property = PropertyNames.SERVER_ARGS)
     private String[] serverArgs;
+    
+    /**
+     * The arguments not deploy.
+     */
+    @Parameter(alias = "not-deploy", property = PropertyNames.NOT_DEPLOY)
+    private boolean notDeploy;
 
     @Override
     protected void doExecute() throws MojoExecutionException, MojoFailureException {
@@ -212,7 +218,7 @@ public class RunMojo extends DeployMojo {
             server.start(startupTimeout);
             // Deploy the application
             server.checkServerState();
-            if (server.isRunning()) {
+            if (!notDeploy && server.isRunning()) {
                 log.info(String.format("Deploying application '%s'%n", deploymentFile.getName()));
                 final Deployment deployment = StandaloneDeployment.create(client, deploymentFile, name, getType(), null, null);
                 switch (executeDeployment(client, deployment)) {
